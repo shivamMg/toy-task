@@ -1,0 +1,44 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>CloudCV GSOC Toy Task</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/lato-fonts.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/semantic.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    {% block stylesheets %}{% endblock %}
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="ui inverted large violet fixed menu">
+        <div class="ui container">
+          <a href="/" class="item header">
+            ToyTask
+          </a>
+        </div>
+      </div>
+    </div>
+  
+    <div class="main">
+    {% block content %}{% endblock %}
+    </div>
+    
+    <div class="ui inverted vertical footer segment">
+      <div class="ui center aligned container">
+        <div class="ui stackable inverted divided grid">
+          <div class="five wide column">
+            <h3 class="ui inverted header">GSOC CloudCV</h3>
+            <p>Implementation of Toy Task Two</p>
+          </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/semantic.min.js' %}"></script>
+    {% block scripts %}{% endblock %}
+  </body>
+</html>

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{% static 'toytask/css/pipeline.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="ui centered grid">
+  <div class="nine wide column">
+    <div class="ui grid" id="module_buttons">
+
+    </div>
+  </div>
+  <div class="five wide column">
+    <button class="ui fluid button" id="ppl_upload">Enter Parameters for Modules</button>
+    <div class="ui inverted segment">
+      <div id="ppl_modules">
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+  var Modules = JSON.parse("{{ module_list | escapejs }}");
+  var Pipeline = {};
+  var Count = 0;
+</script>
+<script type="text/javascript" src="{% static 'toytask/js/pipeline.js' %}"></script>
+{% endblock %}

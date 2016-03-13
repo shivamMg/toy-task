@@ -1,0 +1,12 @@
+.main {
+  min-height: 500px;
+}
+
+.navbar {
+  margin-bottom: 7em;
+}
+
+.ui.footer.segment {
+  margin: 5em 0em 0em;
+  padding: 5em 0em;
+}

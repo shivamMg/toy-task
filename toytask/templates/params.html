@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{% static 'toytask/css/params.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="ui centered grid">
+  <div class="six wide computer eight wide tablet column">
+
+<form class="ui large form {% if team_form.errors %}error{% endif %}" method="post" action="{% url 'params' %}">
+{% csrf_token %}
+
+<div class="ui segments">
+{% for form in form_list %}
+  <div class="ui segment">
+    <h3>{{ form.name }}</h3>
+  </div>
+  <div class="ui secondary segment">
+  {% for field in form.form %}
+    {% if field.errors %}
+      <div class="field error">
+        {{ field.label_tag }}
+        <div class="field-error-msg">
+          {{ field.errors.as_text }}
+        </div>
+        {{ field }}
+      </div>
+    {% else %}
+      <div class="field">
+        {{ field.label_tag }}
+        {{ field }}
+      </div>
+    {% endif %}
+  {% endfor %}
+  </div>
+{% endfor %}
+</div>
+<div class="field">
+  <button class="ui submit button" type="submit">Get Results</button>
+</div>
+</form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="{% static 'toytask/js/params.js' %}"></script>
+{% endblock %}
