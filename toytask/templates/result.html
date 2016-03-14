@@ -3,8 +3,22 @@
 
 {% block content %}
 
-{% for image in image_list %}
-  <img src="/static/images/{{ image }}">
-{% endfor %}
+<div class="ui centered grid">
+  <div class="twelve wide column">
+
+  <div class="ui segment">
+    <h3>Original Image</h3>
+    <img src="/media/images/{{ original_image }}">
+  </div>
+
+  <div class="ui segments">
+  {% for image in image_list %}
+    <div class="ui segment">
+      <h3>{{ image.module }}</h3>
+      <img src="/media/images/{{ image.imagename }}">
+    </div>
+  {% endfor %}
+  </div>
+</div>
 
 {% endblock %}

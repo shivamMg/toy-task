@@ -1,9 +1,10 @@
 import inspect
 
 from django.forms.models import ModelFormMetaclass as ModelFormType
+from django.db import models
 
-from . import forms
-from . import models
+from . import forms as custom_forms
+from . import models as custom_models
 
 
 def form_dict():
@@ -12,27 +13,13 @@ def form_dict():
     """
     form_dict = {}
 
-    for name, obj in inspect.getmembers(forms):
+    for name, obj in inspect.getmembers(custom_forms):
         if inspect.isclass(obj) and type(obj) == ModelFormType:
             model = obj.Meta.model
             handle = model.module_info()['Handle']
             form_dict[handle] = obj
 
     return form_dict
-
-
-def model_dict():
-    """
-    Returns a dictionary with Module Handle and Model as key-value pairs
-    """
-    model_dict = {}
-
-    for name, obj in inspect.getmembers(models):
-        if inspect.isclass(obj):
-            info = obj.module_info()
-            model_dict[info['Handle']] = obj
-
-    return model_dict
 
 
 def info_list():
@@ -42,7 +29,7 @@ def info_list():
     """
     info_list = []
 
-    for name, obj in inspect.getmembers(models):
+    for name, obj in inspect.getmembers(custom_models):
         if inspect.isclass(obj):
             info = obj.module_info()
             info_list.append(info)
@@ -57,7 +44,7 @@ def info_dict():
     """
     info_dict = {}
 
-    for name, obj in inspect.getmembers(models):
+    for name, obj in inspect.getmembers(custom_models):
         if inspect.isclass(obj):
             info = obj.module_info()
             info_dict[info['Handle']] = {
@@ -66,3 +53,7 @@ def info_dict():
             }
 
     return info_dict
+
+
+class UploadImageModel(models.Model):
+    image_file = models.FileField(upload_to='images/')
