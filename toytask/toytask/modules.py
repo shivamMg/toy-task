@@ -21,6 +21,20 @@ def form_dict():
     return form_dict
 
 
+def model_dict():
+    """
+    Returns a dictionary with Module Handle and Model as key-value pairs
+    """
+    model_dict = {}
+
+    for name, obj in inspect.getmembers(models):
+        if inspect.isclass(obj):
+            info = obj.module_info()
+            model_dict[info['Handle']] = obj
+
+    return model_dict
+
+
 def info_list():
     """
     Returns a list of dictionaries, each containing Module Handle, Name and

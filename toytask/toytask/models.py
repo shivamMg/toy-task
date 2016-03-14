@@ -1,3 +1,5 @@
+import cv2
+import numpy as np
 from django.db import models
 
 # module_info()
@@ -10,6 +12,11 @@ class Scale(models.Model):
     width = models.FloatField()
     height = models.FloatField()
 
+    def module_func(self, img):
+        res = cv2.resize(img, None, fx=self.width, fy=self.height,
+                         interpolation = cv2.INTER_CUBIC)
+        return res
+
     def module_info():
         return {
             'Handle': 'scale',
@@ -21,6 +28,13 @@ class Scale(models.Model):
 class Translation(models.Model):
     xoffset = models.FloatField()
     yoffset = models.FloatField()
+
+    def module_func(self, img):
+        rows, cols, _ = img.shape
+        M = np.float32([[1, 0, self.xoffset], [0, 1, self.yoffset]])
+
+        dst = cv2.warpAffine(img, M, (cols,rows))
+        return dst
 
     def module_info():
         return {

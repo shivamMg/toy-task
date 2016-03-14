@@ -1,10 +1,19 @@
 import json
+import os
+import random
 
+import cv2
+from toytask.settings import STATICFILES_DIRS
 from django.shortcuts import render, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import csrf_exempt
 
 from . import modules
+
+
+def imagepath(imagename):
+    static_dir = STATICFILES_DIRS[0]
+    return os.path.join(static_dir, 'images', imagename)
 
 
 @csrf_exempt
@@ -53,8 +62,22 @@ def params(request):
             if not form['form'].is_valid():
                 break
         else:
-            return HttpResponseRedirect('/admin/')
+            image_list = []
+            for i, form in enumerate(form_list):
+                model = form['form'].save(commit=False)
 
+                imgpath = imagepath('lena.png')
+                img = cv2.imread(imgpath)
+
+                dst = model.module_func(img)
+
+                dstname = 'lena_{0}.png'.format(random.randrange(1, 100))
+                cv2.imwrite(imagepath(dstname), dst)
+                image_list.append(dstname)
+
+            return render(request, 'result.html', {
+                'image_list': image_list,}
+            )
 
     return render(request, 'params.html', {
         'form_list': form_list,}

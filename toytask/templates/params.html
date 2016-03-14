@@ -12,8 +12,9 @@
 <form class="ui large form {% if team_form.errors %}error{% endif %}" method="post" action="{% url 'params' %}">
 {% csrf_token %}
 
-<div class="ui segments">
+
 {% for form in form_list %}
+<div class="ui segments">
   <div class="ui segment">
     <h3>{{ form.name }}</h3>
   </div>
@@ -35,10 +36,8 @@
     {% endif %}
   {% endfor %}
   </div>
-{% endfor %}
 </div>
-
-{{ team_member_formset.management_form }}
+{% endfor %}
 
 <div class="field">
   <button class="ui submit button" type="submit">Get Results</button>
