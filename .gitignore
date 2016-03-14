@@ -63,3 +63,4 @@ target/
 
 # My Additions
 venv/
+db.sqlite3

@@ -31,24 +31,30 @@ def params(request):
     form_dict = modules.form_dict()
     info_dict = modules.info_dict()
 
+
     if request.method == 'GET':
-        for module_handle in pipeline:
+        for i, module_handle in enumerate(pipeline):
             form_class = form_dict[module_handle]
             info = info_dict[module_handle]
             form_list.append({
-                'form': form_class(),
-                'name': info['Name'],
-                'description': info['Description'],}
+                'form': form_class(prefix='form_'+str(i)),
+                'name': info['Name'],}
             )
     elif request.method == 'POST':
-        for module_handle in pipeline:
+        for i, module_handle in enumerate(pipeline):
             form_class = form_dict[module_handle]
             info = info_dict[module_handle]
             form_list.append({
-                'form': form_class(request.POST),
-                'name': info['Name'],
-                'description': info['Description'],}
+                'form': form_class(request.POST, prefix='form_'+str(i)),
+                'name': info['Name'],}
             )
+
+        for form in form_list:
+            if not form['form'].is_valid():
+                break
+        else:
+            return HttpResponseRedirect('/admin/')
+
 
     return render(request, 'params.html', {
         'form_list': form_list,}
