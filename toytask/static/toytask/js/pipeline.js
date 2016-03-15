@@ -2,7 +2,7 @@ $(document).ready(function() {
   var module_columns = "";
   $.each(Modules, function(i, module) {
     console.log(module);
-    var column = '<div class="four wide computer six wide tablet column"><button data-handle="'+module.Handle+'"class="ui fluid violet basic large button module-button">' +
+    var column = '<div class="five wide computer column"><button data-handle="'+module.Handle+'"class="ui fluid violet basic large button module-button">' +
       module.Name + '</button><div class="ui fluid inverted popup top left transition hidden">' + module.Description +
       '</div></div>';
     module_columns += column;
